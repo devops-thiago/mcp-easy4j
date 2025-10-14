@@ -3,7 +3,7 @@
 [![CI](https://github.com/devops-thiago/mcp-easy4j/actions/workflows/ci.yaml/badge.svg)](https://github.com/devops-thiago/mcp-easy4j/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/devops-thiago/mcp-easy4j/branch/main/graph/badge.svg)](https://codecov.io/gh/devops-thiago/mcp-easy4j)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devops-thiago_mcp-easy4j&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=devops-thiago_mcp-easy4j)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.mcpeasy4j/mcp-easy4j.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.mcpeasy4j%22%20AND%20a:%22mcp-easy4j%22)
+[![Maven Central](https://img.shields.io/maven-central/v/br.com.arquivolivre/mcp-easy4j.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22br.com.arquivolivre%22%20AND%20a:%22mcp-easy4j%22)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Annotation-based framework for building [Model Context Protocol](https://modelcontextprotocol.io/) servers in Java 21+.
@@ -18,14 +18,30 @@ Annotation-based framework for building [Model Context Protocol](https://modelco
 
 ## Quick Start
 
-**Add dependency:**
+**Maven:**
 
 ```xml
 <dependency>
-    <groupId>io.github.mcpeasy4j</groupId>
+    <groupId>br.com.arquivolivre</groupId>
     <artifactId>mcp-easy4j</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
+```
+
+**Gradle:**
+
+```gradle
+dependencies {
+    implementation 'br.com.arquivolivre:mcp-easy4j:1.0.0'
+}
+```
+
+**Gradle (Kotlin DSL):**
+
+```kotlin
+dependencies {
+    implementation("br.com.arquivolivre:mcp-easy4j:1.0.0")
+}
 ```
 
 **Create your server:**
