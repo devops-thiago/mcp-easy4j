@@ -11,6 +11,30 @@
 
     <name>MCP Easy4J</name>
     <description>Annotation-based framework for building Model Context Protocol (MCP) servers in Java</description>
+    <url>https://github.com/devops-thiago/mcp-easy4j</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>devops-thiago</id>
+            <name>Thiago Gonzaga</name>
+            <email>contato@thiagogonzaga.dev</email>
+            <url>https://github.com/devops-thiago</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/devops-thiago/mcp-easy4j.git</connection>
+        <developerConnection>scm:git:ssh://github.com:devops-thiago/mcp-easy4j.git</developerConnection>
+        <url>https://github.com/devops-thiago/mcp-easy4j/tree/main</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
