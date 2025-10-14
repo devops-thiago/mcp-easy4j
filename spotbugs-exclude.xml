@@ -21,4 +21,17 @@
         <Class name="br.com.arquivolivre.mcpeasy4j.adapter.SdkFeatureAdapter"/>
         <Bug pattern="THROWS_METHOD_THROWS_RUNTIMEEXCEPTION"/>
     </Match>
+ 
+    <!-- Suppress EI_EXPOSE_REP2 for ObjectMapper in constructors -->
+    <!-- ObjectMapper is thread-safe and designed to be shared across instances -->
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.adapter.SdkFeatureAdapter"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.invoker.MethodInvoker"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>
