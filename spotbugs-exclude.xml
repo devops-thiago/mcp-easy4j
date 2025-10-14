@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Suppress EI_EXPOSE_REP and EI_EXPOSE_REP2 for model records -->
+    <!-- These are immutable records and Method objects are effectively immutable -->
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.model.ToolDefinition"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.model.PromptDefinition"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    
+    <!-- Suppress THROWS_METHOD_THROWS_RUNTIMEEXCEPTION for SdkFeatureAdapter -->
+    <!-- These methods intentionally throw RuntimeException to propagate errors from user code -->
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.adapter.SdkFeatureAdapter"/>
+        <Bug pattern="THROWS_METHOD_THROWS_RUNTIMEEXCEPTION"/>
+    </Match>
+ 
+    <!-- Suppress EI_EXPOSE_REP2 for ObjectMapper in constructors -->
+    <!-- ObjectMapper is thread-safe and designed to be shared across instances -->
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.adapter.SdkFeatureAdapter"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="br.com.arquivolivre.mcpeasy4j.invoker.MethodInvoker"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>
