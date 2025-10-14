@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/devops-thiago/mcp-easy4j/branch/main/graph/badge.svg)](https://codecov.io/gh/devops-thiago/mcp-easy4j)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=devops-thiago_mcp-easy4j&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=devops-thiago_mcp-easy4j)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.mcpeasy4j/mcp-easy4j.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.mcpeasy4j%22%20AND%20a:%22mcp-easy4j%22)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 An annotation-based framework for building Model Context Protocol (MCP) servers in Java.
 
@@ -362,7 +362,7 @@ MCP Easy4J is built on top of the official MCP Java SDK:
 
 ## License
 
-[Add your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
@@ -371,7 +371,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Support
 
 For issues and questions, please open an issue on GitHub.
-
-## Acknowledgments
-
-Built on top of the [Model Context Protocol](https://modelcontextprotocol.io/) specification.
