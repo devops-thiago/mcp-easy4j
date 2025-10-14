@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.mcpeasy4j</groupId>
+    <groupId>br.com.arquivolivre</groupId>
     <artifactId>mcp-easy4j-examples</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>MCP Easy4J Examples</name>
@@ -22,9 +22,9 @@
     <dependencies>
         <!-- MCP Easy4J Framework -->
         <dependency>
-            <groupId>io.github.mcpeasy4j</groupId>
+            <groupId>br.com.arquivolivre</groupId>
             <artifactId>mcp-easy4j</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
@@ -48,7 +48,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>io.github.mcpeasy4j.examples.ExampleMcpServer</mainClass>
+                    <mainClass>br.com.arquivolivre.mcpeasy4j.examples.ExampleMcpServer</mainClass>
                 </configuration>
             </plugin>
         </plugins>

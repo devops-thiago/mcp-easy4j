@@ -1,4 +1,4 @@
-package io.github.mcpeasy4j.examples;
+package br.com.arquivolivre.mcpeasy4j.examples;
 
 import br.com.arquivolivre.mcpeasy4j.McpServerBootstrap;
 import br.com.arquivolivre.mcpeasy4j.annotation.McpServer;
