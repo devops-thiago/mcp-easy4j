@@ -1,0 +1,47 @@
+version: 2
+updates:
+  # Maven dependencies for root project
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      maven-dependencies:
+        patterns:
+          - "*"
+    labels:
+      - "dependencies"
+      - "maven"
+    open-pull-requests-limit: 5
+
+  # Maven dependencies for examples
+  - package-ecosystem: "maven"
+    directory: "/examples"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      maven-dependencies:
+        patterns:
+          - "*"
+    labels:
+      - "dependencies"
+      - "maven"
+      - "examples"
+    open-pull-requests-limit: 5
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    open-pull-requests-limit: 5
