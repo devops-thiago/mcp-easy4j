@@ -6,7 +6,6 @@ import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
 import br.com.arquivolivre.mcpeasy4j.scanner.AnnotationScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.StdioServerTransportProvider;
@@ -117,8 +116,8 @@ public class McpServerBootstrap {
       prompts = scanner.scanPrompts(serverInstance);
     }
 
-    // Register features with SDK using adapter
-    SdkFeatureAdapter adapter = new SdkFeatureAdapter(new Gson());
+    // Register features with SDK using adapter (reuse the same ObjectMapper as transport)
+    SdkFeatureAdapter adapter = new SdkFeatureAdapter(new ObjectMapper());
     adapter.registerTools(sdkServer, tools);
     adapter.registerResources(sdkServer, resources);
     adapter.registerPrompts(sdkServer, prompts);

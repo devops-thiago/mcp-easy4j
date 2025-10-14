@@ -358,7 +358,7 @@ MCP Easy4J is built on top of the official MCP Java SDK:
   - Provides `McpStatelessSyncServer` for server implementation
   - Handles JSON-RPC 2.0 protocol compliance
   - Manages session lifecycle and error handling
-- [Gson](https://github.com/google/gson) - JSON serialization for parameter mapping
+  - Includes Jackson for JSON serialization
 
 ## License
 

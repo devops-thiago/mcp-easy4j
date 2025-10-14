@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.arquivolivre.mcpeasy4j.annotation.PromptArgument;
 import br.com.arquivolivre.mcpeasy4j.annotation.Property;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ class MethodInvokerTest {
 
   @BeforeEach
   void setUp() {
-    invoker = new MethodInvoker(new Gson());
+    invoker = new MethodInvoker(new ObjectMapper());
     testInstance = new TestClass();
   }
 

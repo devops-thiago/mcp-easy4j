@@ -13,7 +13,6 @@ import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
 import br.com.arquivolivre.mcpeasy4j.scanner.AnnotationScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.StdioServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema;
@@ -75,7 +74,7 @@ class SdkTransportIntegrationTest {
   @BeforeEach
   void setUp() {
     scanner = new AnnotationScanner();
-    adapter = new SdkFeatureAdapter(new Gson());
+    adapter = new SdkFeatureAdapter(new ObjectMapper());
     serverInstance = new IntegrationTestServer();
   }
 

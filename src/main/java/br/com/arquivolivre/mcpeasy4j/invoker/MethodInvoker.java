@@ -2,21 +2,21 @@ package br.com.arquivolivre.mcpeasy4j.invoker;
 
 import br.com.arquivolivre.mcpeasy4j.annotation.PromptArgument;
 import br.com.arquivolivre.mcpeasy4j.annotation.Property;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Map;
 
 /**
- * Handles method invocation with parameter conversion and result serialization. Converts JSON-RPC
- * parameters to Java types, invokes methods via reflection, and serializes return values to JSON.
+ * Handles method invocation with parameter conversion and result serialization. Uses Jackson
+ * ObjectMapper for JSON operations, consistent with the MCP SDK.
  */
 public class MethodInvoker {
-  private final Gson gson;
+  private final ObjectMapper objectMapper;
 
-  public MethodInvoker(Gson gson) {
-    this.gson = gson;
+  public MethodInvoker(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
   }
 
   /**
@@ -118,9 +118,8 @@ public class MethodInvoker {
       return value;
     }
 
-    // Convert using Gson for complex objects
-    var jsonElement = gson.toJsonTree(value);
-    return gson.fromJson(jsonElement, targetType);
+    // Convert using Jackson for complex objects
+    return objectMapper.convertValue(value, targetType);
   }
 
   /**
@@ -142,7 +141,7 @@ public class MethodInvoker {
       case Double d -> d;
       case Float f -> f;
       case Boolean b -> b;
-      default -> gson.toJsonTree(result);
+      default -> objectMapper.valueToTree(result);
     };
   }
 

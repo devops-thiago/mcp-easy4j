@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.mcpeasy4j</groupId>
+    <groupId>br.com.arquivolivre</groupId>
     <artifactId>mcp-easy4j</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>MCP Easy4J</name>
@@ -17,7 +17,6 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.release>21</maven.compiler.release>
-        <gson.version>2.13.2</gson.version>
         <junit.version>5.10.0</junit.version>
         <jacoco.version>0.8.13</jacoco.version>
         <checkstyle.version>10.12.5</checkstyle.version>
@@ -44,20 +43,7 @@
             <groupId>io.modelcontextprotocol.sdk</groupId>
             <artifactId>mcp</artifactId>
         </dependency>
-        <!-- JSON-RPC Library -->
-        <dependency>
-            <groupId>br.com.arquivolivre</groupId>
-            <artifactId>json-rpc</artifactId>
-            <version>1.0.3</version>
-        </dependency>
 
-        <!-- Gson for JSON serialization -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-        </dependency>
-        
         <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

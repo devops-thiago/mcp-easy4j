@@ -8,7 +8,7 @@ import br.com.arquivolivre.mcpeasy4j.model.PromptArgument;
 import br.com.arquivolivre.mcpeasy4j.model.PromptDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncPromptSpecification;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncResourceSpecification;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification;
@@ -37,13 +37,13 @@ class SdkFeatureAdapterTest {
   @Mock private McpSyncServer mockServer;
 
   private SdkFeatureAdapter adapter;
-  private Gson gson;
+  private ObjectMapper objectMapper;
   private TestService testService;
 
   @BeforeEach
   void setUp() {
-    gson = new Gson();
-    adapter = new SdkFeatureAdapter(gson);
+    objectMapper = new ObjectMapper();
+    adapter = new SdkFeatureAdapter(objectMapper);
     testService = new TestService();
   }
 

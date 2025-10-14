@@ -4,8 +4,8 @@ import br.com.arquivolivre.mcpeasy4j.invoker.MethodInvoker;
 import br.com.arquivolivre.mcpeasy4j.model.PromptDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncPromptSpecification;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncResourceSpecification;
 import io.modelcontextprotocol.server.McpServerFeatures.SyncToolSpecification;
@@ -26,15 +26,15 @@ import java.util.Map;
 /**
  * Adapter that bridges annotation-based definitions to SDK feature registration. Converts
  * ToolDefinition, ResourceDefinition, and PromptDefinition to SDK specifications and registers them
- * with the MCP server.
+ * with the MCP server. Uses Jackson ObjectMapper for JSON operations, consistent with the MCP SDK.
  */
 public class SdkFeatureAdapter {
   private final MethodInvoker methodInvoker;
-  private final Gson gson;
+  private final ObjectMapper objectMapper;
 
-  public SdkFeatureAdapter(Gson gson) {
-    this.methodInvoker = new MethodInvoker(gson);
-    this.gson = gson;
+  public SdkFeatureAdapter(ObjectMapper objectMapper) {
+    this.methodInvoker = new MethodInvoker(objectMapper);
+    this.objectMapper = objectMapper;
   }
 
   /**
@@ -225,10 +225,14 @@ public class SdkFeatureAdapter {
     if (result instanceof String str) {
       return str;
     }
-    if (result instanceof JsonElement jsonElement) {
-      return gson.toJson(jsonElement);
+    if (result instanceof JsonNode jsonNode) {
+      return jsonNode.toString();
     }
     // For other objects, serialize to JSON
-    return gson.toJson(result);
+    try {
+      return objectMapper.writeValueAsString(result);
+    } catch (Exception e) {
+      return result.toString();
+    }
   }
 }
