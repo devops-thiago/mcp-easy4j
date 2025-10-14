@@ -112,6 +112,36 @@ Run the example:
 cd examples && mvn exec:java
 ```
 
+## IDE Integration
+
+### VS Code / Cursor / Kiro
+
+**Setup:**
+
+1. Open Command Palette: `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
+2. Search for "MCP" or "MCP Settings"
+3. Select the option to edit MCP configuration
+4. Add your server configuration:
+
+```json
+{
+  "mcpServers": {
+    "my-mcp-server": {
+      "command": "java",
+      "args": ["-jar", "/path/to/your/server.jar"]
+    }
+  }
+}
+```
+
+### Testing Your Server
+
+After configuration, restart your IDE/application. Your MCP server should appear in the MCP tools list. You can verify it's working by:
+
+1. Check the MCP server logs (stderr output)
+2. Try calling a tool from your IDE's AI assistant
+3. Use the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) for debugging
+
 ## Architecture
 
 MCP Easy4J is a thin annotation wrapper around the [MCP Java SDK](https://github.com/modelcontextprotocol/java-sdk):
