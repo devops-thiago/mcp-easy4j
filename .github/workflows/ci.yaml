@@ -38,34 +38,41 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and verify
-        run: mvn clean verify
+      - name: Check code style
+        run: mvn checkstyle:check
+
+      - name: Check code format
+        run: mvn fmt:check
+
+      - name: Compile
+        run: mvn clean compile
+
+      - name: Run SpotBugs
+        run: mvn spotbugs:check
+
+      - name: Run tests
+        run: mvn test
+
+      - name: Verify coverage
+        run: mvn jacoco:check
+
+      - name: Build package
+        run: mvn package -DskipTests
 
       - name: Run SonarCloud analysis
-        if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            mvn sonar:sonar \
-              -Dsonar.projectKey=devops-thiago_mcp-easy4j \
-              -Dsonar.organization=devops-thiago \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
-              -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
-              -Dsonar.pullrequest.branch=${{ github.head_ref }} \
-              -Dsonar.pullrequest.base=${{ github.base_ref }}
-          else
-            mvn sonar:sonar \
-              -Dsonar.projectKey=devops-thiago_mcp-easy4j \
-              -Dsonar.organization=devops-thiago \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-          fi
+          mvn sonar:sonar \
+            -Dsonar.projectKey=devops-thiago_mcp-easy4j \
+            -Dsonar.organization=devops-thiago \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
       - name: Upload coverage to Codecov
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        continue-on-error: true
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
