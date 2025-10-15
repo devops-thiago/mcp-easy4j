@@ -20,6 +20,7 @@ public class AnnotationScanner {
 
   private final SchemaGenerator schemaGenerator;
 
+  /** Creates a new AnnotationScanner with a default SchemaGenerator. */
   public AnnotationScanner() {
     this.schemaGenerator = new SchemaGenerator();
   }

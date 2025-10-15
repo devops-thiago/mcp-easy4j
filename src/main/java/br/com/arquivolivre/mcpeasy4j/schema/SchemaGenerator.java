@@ -64,7 +64,7 @@ public class SchemaGenerator {
             propertyAnnotation.name().isEmpty() ? parameter.getName() : propertyAnnotation.name();
 
         // Build property schema as a Map
-        Map<String, Object> propertySchema = new LinkedHashMap<>();
+        var propertySchema = new LinkedHashMap<String, Object>();
         propertySchema.put("type", jsonType);
 
         // Add description if present

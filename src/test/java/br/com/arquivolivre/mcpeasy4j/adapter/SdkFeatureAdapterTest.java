@@ -50,8 +50,8 @@ class SdkFeatureAdapterTest {
   @Test
   void testRegisterTools() throws Exception {
     // Arrange
-    Method method = TestService.class.getMethod("echoTool", String.class);
-    McpSchema.JsonSchema schema =
+    var method = TestService.class.getMethod("echoTool", String.class);
+    var schema =
         new McpSchema.JsonSchema(
             "object",
             Map.of("message", Map.of("type", "string")),
@@ -60,17 +60,16 @@ class SdkFeatureAdapterTest {
             null,
             null);
 
-    ToolDefinition toolDef = new ToolDefinition("echo", "Echo tool", schema, method, testService);
+    var toolDef = new ToolDefinition("echo", "Echo tool", schema, method, testService);
 
     // Act
     adapter.registerTools(mockServer, List.of(toolDef));
 
     // Assert
-    ArgumentCaptor<SyncToolSpecification> specCaptor =
-        ArgumentCaptor.forClass(SyncToolSpecification.class);
+    var specCaptor = ArgumentCaptor.forClass(SyncToolSpecification.class);
     verify(mockServer).addTool(specCaptor.capture());
 
-    SyncToolSpecification capturedSpec = specCaptor.getValue();
+    var capturedSpec = specCaptor.getValue();
     assertEquals("echo", capturedSpec.tool().name());
     assertEquals("Echo tool", capturedSpec.tool().description());
     assertEquals(schema, capturedSpec.tool().inputSchema());
@@ -79,30 +78,28 @@ class SdkFeatureAdapterTest {
   @Test
   void testToolCallbackInvocation() throws Exception {
     // Arrange
-    Method method = TestService.class.getMethod("echoTool", String.class);
-    McpSchema.JsonSchema schema =
-        new McpSchema.JsonSchema("object", Map.of(), List.of(), null, null, null);
+    var method = TestService.class.getMethod("echoTool", String.class);
+    var schema = new McpSchema.JsonSchema("object", Map.of(), List.of(), null, null, null);
 
-    ToolDefinition toolDef = new ToolDefinition("echo", "Echo tool", schema, method, testService);
+    var toolDef = new ToolDefinition("echo", "Echo tool", schema, method, testService);
 
     adapter.registerTools(mockServer, List.of(toolDef));
 
-    ArgumentCaptor<SyncToolSpecification> specCaptor =
-        ArgumentCaptor.forClass(SyncToolSpecification.class);
+    var specCaptor = ArgumentCaptor.forClass(SyncToolSpecification.class);
     verify(mockServer).addTool(specCaptor.capture());
 
-    SyncToolSpecification spec = specCaptor.getValue();
+    var spec = specCaptor.getValue();
 
     // Act
     Map<String, Object> params = Map.of("message", "Hello");
-    CallToolResult result = spec.call().apply(null, params);
+    var result = spec.call().apply(null, params);
 
     // Assert
     assertNotNull(result);
     assertFalse(result.isError());
     assertEquals(1, result.content().size());
     assertTrue(result.content().get(0) instanceof TextContent);
-    TextContent content = (TextContent) result.content().get(0);
+    var content = (TextContent) result.content().get(0);
     assertEquals("Echo: Hello", content.text());
   }
 

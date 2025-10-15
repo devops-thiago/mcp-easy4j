@@ -25,20 +25,20 @@ class MethodInvokerTest {
 
   @Test
   void testInvokeWithStringParameter() throws Exception {
-    Method method = TestClass.class.getMethod("echo", String.class);
+    var method = TestClass.class.getMethod("echo", String.class);
     Map<String, Object> params = Map.of("message", "Hello");
 
-    Object result = invoker.invoke(method, testInstance, params);
+    var result = invoker.invoke(method, testInstance, params);
 
     assertEquals("Echo: Hello", result);
   }
 
   @Test
   void testInvokeWithMultipleParameters() throws Exception {
-    Method method = TestClass.class.getMethod("add", double.class, double.class);
+    var method = TestClass.class.getMethod("add", double.class, double.class);
     Map<String, Object> params = Map.of("a", 5.0, "b", 3.0);
 
-    Object result = invoker.invoke(method, testInstance, params);
+    var result = invoker.invoke(method, testInstance, params);
 
     assertEquals(8.0, result);
   }
