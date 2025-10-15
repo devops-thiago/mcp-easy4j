@@ -13,6 +13,7 @@ import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
 import br.com.arquivolivre.mcpeasy4j.scanner.AnnotationScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.modelcontextprotocol.json.McpJsonMapper;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.StdioServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema;
@@ -81,9 +82,9 @@ class SdkTransportIntegrationTest {
   @Test
   void testCompleteFlowFromScanningToRegistration() {
     // Step 1: Scan annotations
-    List<ToolDefinition> tools = scanner.scanTools(serverInstance);
-    List<ResourceDefinition> resources = scanner.scanResources(serverInstance);
-    List<PromptDefinition> prompts = scanner.scanPrompts(serverInstance);
+    var tools = scanner.scanTools(serverInstance);
+    var resources = scanner.scanResources(serverInstance);
+    var prompts = scanner.scanPrompts(serverInstance);
 
     // Verify scanning worked
     assertEquals(2, tools.size(), "Should scan 2 tools");
@@ -91,7 +92,7 @@ class SdkTransportIntegrationTest {
     assertEquals(1, prompts.size(), "Should scan 1 prompt");
 
     // Step 2: Create SDK server (without transport for testing)
-    McpSyncServer sdkServer = createTestSdkServer();
+    var sdkServer = createTestSdkServer();
 
     // Step 3: Register features with SDK
     assertDoesNotThrow(() -> adapter.registerTools(sdkServer, tools));
@@ -105,18 +106,17 @@ class SdkTransportIntegrationTest {
   @Test
   void testToolRegistrationAndInvocation() {
     // Scan and register tools
-    List<ToolDefinition> tools = scanner.scanTools(serverInstance);
-    McpSyncServer sdkServer = createTestSdkServer();
+    var tools = scanner.scanTools(serverInstance);
+    var sdkServer = createTestSdkServer();
     adapter.registerTools(sdkServer, tools);
 
     // Verify tools were scanned correctly
-    ToolDefinition testTool =
+    var testTool =
         tools.stream().filter(t -> t.name().equals("test_tool")).findFirst().orElse(null);
     assertNotNull(testTool, "test_tool should be found");
     assertEquals("Test tool for integration", testTool.description());
 
-    ToolDefinition mathTool =
-        tools.stream().filter(t -> t.name().equals("math_add")).findFirst().orElse(null);
+    var mathTool = tools.stream().filter(t -> t.name().equals("math_add")).findFirst().orElse(null);
     assertNotNull(mathTool, "math_add should be found");
     assertEquals("Adds two numbers", mathTool.description());
   }
@@ -186,7 +186,8 @@ class SdkTransportIntegrationTest {
             br.com.arquivolivre.mcpeasy4j.annotation.McpServer.class);
 
     // Create a mock transport for testing
-    StdioServerTransportProvider transport = new StdioServerTransportProvider(new ObjectMapper());
+    StdioServerTransportProvider transport =
+        new StdioServerTransportProvider(McpJsonMapper.getDefault());
 
     // Build SDK server
     McpSyncServer sdkServer =
@@ -233,7 +234,8 @@ class SdkTransportIntegrationTest {
    * registration without requiring actual stdin/stdout.
    */
   private McpSyncServer createTestSdkServer() {
-    StdioServerTransportProvider transport = new StdioServerTransportProvider(new ObjectMapper());
+    StdioServerTransportProvider transport =
+        new StdioServerTransportProvider(McpJsonMapper.getDefault());
 
     return io.modelcontextprotocol.server.McpServer.sync(transport)
         .serverInfo("test-server", "1.0.0")

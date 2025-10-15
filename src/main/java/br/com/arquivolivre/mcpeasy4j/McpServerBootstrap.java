@@ -1,12 +1,12 @@
 package br.com.arquivolivre.mcpeasy4j;
 
 import br.com.arquivolivre.mcpeasy4j.adapter.SdkFeatureAdapter;
+import br.com.arquivolivre.mcpeasy4j.annotation.McpServer;
 import br.com.arquivolivre.mcpeasy4j.model.PromptDefinition;
 import br.com.arquivolivre.mcpeasy4j.model.ResourceDefinition;
-import br.com.arquivolivre.mcpeasy4j.model.ToolDefinition;
 import br.com.arquivolivre.mcpeasy4j.scanner.AnnotationScanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.modelcontextprotocol.server.McpServer;
+import io.modelcontextprotocol.json.McpJsonMapper;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.StdioServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema;
@@ -28,8 +28,7 @@ public class McpServerBootstrap {
    */
   public static void start(Class<?> serverClass) {
     // Validate that class has @McpServer annotation
-    br.com.arquivolivre.mcpeasy4j.annotation.McpServer annotation =
-        serverClass.getAnnotation(br.com.arquivolivre.mcpeasy4j.annotation.McpServer.class);
+    var annotation = serverClass.getAnnotation(McpServer.class);
     if (annotation == null) {
       throw new IllegalArgumentException(
           "Class " + serverClass.getName() + " must be annotated with @McpServer");
@@ -45,17 +44,16 @@ public class McpServerBootstrap {
     }
 
     // Create bootstrap instance and initialize server
-    McpServerBootstrap bootstrap = new McpServerBootstrap(serverInstance, annotation);
+    var bootstrap = new McpServerBootstrap(serverInstance, annotation);
     bootstrap.initialize();
   }
 
   private final Object serverInstance;
-  private final br.com.arquivolivre.mcpeasy4j.annotation.McpServer annotation;
+  private final McpServer annotation;
   private McpSyncServer sdkServer;
   private StdioServerTransportProvider transport;
 
-  private McpServerBootstrap(
-      Object serverInstance, br.com.arquivolivre.mcpeasy4j.annotation.McpServer annotation) {
+  private McpServerBootstrap(Object serverInstance, McpServer annotation) {
     this.serverInstance = serverInstance;
     this.annotation = annotation;
   }
@@ -76,12 +74,12 @@ public class McpServerBootstrap {
    * transport first, then builds the server with it.
    */
   private void createSdkServer() {
-    // Create transport with ObjectMapper
-    transport = new StdioServerTransportProvider(new ObjectMapper());
+    // Create transport with SDK's McpJsonMapper
+    transport = new StdioServerTransportProvider(McpJsonMapper.getDefault());
 
     // Build SDK server with transport
     sdkServer =
-        McpServer.sync(transport)
+        io.modelcontextprotocol.server.McpServer.sync(transport)
             .serverInfo(annotation.name(), annotation.version())
             .capabilities(
                 McpSchema.ServerCapabilities.builder()
@@ -99,10 +97,10 @@ public class McpServerBootstrap {
    */
   private void scanAndRegister() {
     // Create AnnotationScanner instance
-    AnnotationScanner scanner = new AnnotationScanner();
+    var scanner = new AnnotationScanner();
 
     // Scan for tools
-    List<ToolDefinition> tools = scanner.scanTools(serverInstance);
+    var tools = scanner.scanTools(serverInstance);
 
     // Scan for resources (if enabled)
     List<ResourceDefinition> resources = List.of();
@@ -117,7 +115,7 @@ public class McpServerBootstrap {
     }
 
     // Register features with SDK using adapter (reuse the same ObjectMapper as transport)
-    SdkFeatureAdapter adapter = new SdkFeatureAdapter(new ObjectMapper());
+    var adapter = new SdkFeatureAdapter(new ObjectMapper());
     adapter.registerTools(sdkServer, tools);
     adapter.registerResources(sdkServer, resources);
     adapter.registerPrompts(sdkServer, prompts);

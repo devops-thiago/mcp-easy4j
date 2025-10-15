@@ -37,10 +37,10 @@ public class MethodInvoker {
       throws InvocationException {
     try {
       // Convert parameters from Map to Object array
-      Object[] args = convertParameters(method, params);
+      var args = convertParameters(method, params);
 
       // Invoke the method
-      Object result = method.invoke(instance, args);
+      var result = method.invoke(instance, args);
 
       // Serialize the result to JSON
       return convertToJson(result);
@@ -48,7 +48,7 @@ public class MethodInvoker {
       throw new InvocationException("Method is not accessible: " + method.getName(), e);
     } catch (InvocationTargetException e) {
       // Unwrap the actual exception thrown by the method
-      Throwable cause = e.getCause();
+      var cause = e.getCause();
       throw new InvocationException("Method invocation failed: " + cause.getMessage(), cause);
     } catch (Exception e) {
       throw new InvocationException("Failed to invoke method: " + e.getMessage(), e);
@@ -68,7 +68,7 @@ public class MethodInvoker {
     var parameters = method.getParameters();
     var args = new Object[parameters.length];
 
-    for (int i = 0; i < parameters.length; i++) {
+    for (var i = 0; i < parameters.length; i++) {
       var param = parameters[i];
 
       // Try to get parameter name from annotation first
