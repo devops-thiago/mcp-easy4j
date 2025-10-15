@@ -15,6 +15,11 @@ import java.util.Map;
 public class MethodInvoker {
   private final ObjectMapper objectMapper;
 
+  /**
+   * Creates a new MethodInvoker with the specified ObjectMapper.
+   *
+   * @param objectMapper the ObjectMapper to use for JSON conversions
+   */
   public MethodInvoker(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
   }
@@ -147,6 +152,12 @@ public class MethodInvoker {
 
   /** Exception thrown when method invocation fails. */
   public static class InvocationException extends Exception {
+    /**
+     * Creates a new InvocationException with the specified message and cause.
+     *
+     * @param message the detail message
+     * @param cause the cause of the exception
+     */
     public InvocationException(String message, Throwable cause) {
       super(message, cause);
     }

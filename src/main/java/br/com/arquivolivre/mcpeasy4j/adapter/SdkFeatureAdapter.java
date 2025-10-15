@@ -32,6 +32,11 @@ public class SdkFeatureAdapter {
   private final MethodInvoker methodInvoker;
   private final ObjectMapper objectMapper;
 
+  /**
+   * Creates a new SdkFeatureAdapter with the specified ObjectMapper.
+   *
+   * @param objectMapper the ObjectMapper to use for JSON operations
+   */
   public SdkFeatureAdapter(ObjectMapper objectMapper) {
     this.methodInvoker = new MethodInvoker(objectMapper);
     this.objectMapper = objectMapper;
