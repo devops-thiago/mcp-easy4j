@@ -43,8 +43,8 @@
         <maven.compiler.release>21</maven.compiler.release>
         <junit.version>6.0.0</junit.version>
         <jacoco.version>0.8.14</jacoco.version>
-        <checkstyle.version>12.0.1</checkstyle.version>
-        <spotbugs.version>4.9.6.0</spotbugs.version>
+        <checkstyle.version>12.1.0</checkstyle.version>
+        <spotbugs.version>4.9.8.1</spotbugs.version>
         <sonar.organization>devops-thiago</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
