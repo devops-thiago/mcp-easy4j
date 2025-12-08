@@ -43,7 +43,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <junit.version>6.0.1</junit.version>
         <jacoco.version>0.8.14</jacoco.version>
-        <checkstyle.version>12.1.2</checkstyle.version>
+        <checkstyle.version>12.2.0</checkstyle.version>
         <spotbugs.version>4.9.8.2</spotbugs.version>
         <sonar.organization>devops-thiago</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -54,7 +54,7 @@
             <dependency>
                 <groupId>io.modelcontextprotocol.sdk</groupId>
                 <artifactId>mcp-bom</artifactId>
-                <version>0.16.0</version>
+                <version>0.17.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -245,7 +245,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -316,7 +316,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
+                        <version>3.4.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
