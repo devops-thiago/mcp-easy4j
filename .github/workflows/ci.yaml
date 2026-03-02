@@ -82,14 +82,14 @@ jobs:
           fail_ci_if_error: false
 
       - name: Upload JaCoCo coverage report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: jacoco-report
           path: target/site/jacoco/
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: target/surefire-reports/
